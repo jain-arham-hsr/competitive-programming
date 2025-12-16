@@ -1,3 +1,6 @@
 __exec__
 __templates__
+
 .vscode
+
+.DS_STORE
