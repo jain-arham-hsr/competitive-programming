@@ -1,6 +1,6 @@
 __exec__
 __templates__
 
-.vscode
+*.code-snippets
 
 .DS_STORE
