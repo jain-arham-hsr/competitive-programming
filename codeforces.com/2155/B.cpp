@@ -46,22 +46,28 @@ int main() {
     int T;
     cin >> T;
     while (T--) {
-        int n;
-        cin >> n;
-        string s;
-        cin >> s;
-        vector<char> stack;
-        stack.reserve(n);
-        for (char c : s) {
-            if (stack.size() > 0 && *(stack.end() - 1) == c)
-                stack.pop_back();
-            else
-                stack.push_back(c);
-        }
-        if (stack.size() > 0)
+        int n, k;
+        cin >> n >> k;
+        if (n * n == k + 1) {
             cout << "NO\n";
-        else
-            cout << "YES\n";
+            continue;
+        }
+        cout << "YES\n";
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (k > 0) {
+                    cout << "U";
+                    k--;
+                } else if (i < n - 1) {
+                    cout << "D";
+                } else if (j < n - 1) {
+                    cout << "R";
+                } else {
+                    cout << "L";
+                }
+            }
+            cout << "\n";
+        }
     }
     return 0;
 }

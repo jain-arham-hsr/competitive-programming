@@ -46,22 +46,22 @@ int main() {
     int T;
     cin >> T;
     while (T--) {
-        int n;
-        cin >> n;
-        string s;
-        cin >> s;
-        vector<char> stack;
-        stack.reserve(n);
-        for (char c : s) {
-            if (stack.size() > 0 && *(stack.end() - 1) == c)
-                stack.pop_back();
-            else
-                stack.push_back(c);
+        int n, k;
+        cin >> n >> k;
+        vector<int> nums(n);
+        for (auto &x : nums)
+            cin >> x;
+        sort(nums.begin(), nums.end());
+        long long currSum = accumulate(nums.begin(), nums.end() - k, 0LL);
+        long long maxSum = currSum;
+        int l = 0;
+        for (int i = 0; i < k; i++) {
+            currSum -= nums[l] + nums[l + 1];
+            currSum += nums[n - k + i];
+            maxSum = max(maxSum, currSum);
+            l += 2;
         }
-        if (stack.size() > 0)
-            cout << "NO\n";
-        else
-            cout << "YES\n";
+        cout << maxSum << "\n";
     }
     return 0;
 }

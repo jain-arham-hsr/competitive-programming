@@ -46,22 +46,14 @@ int main() {
     int T;
     cin >> T;
     while (T--) {
-        int n;
-        cin >> n;
-        string s;
-        cin >> s;
-        vector<char> stack;
-        stack.reserve(n);
-        for (char c : s) {
-            if (stack.size() > 0 && *(stack.end() - 1) == c)
-                stack.pop_back();
-            else
-                stack.push_back(c);
+        int l, a, b;
+        cin >> l >> a >> b;
+        int maxPrize = a;
+        for (int i = 0; i < l; i++) {
+            a = (a + b) % l;
+            maxPrize = max(a, maxPrize);
         }
-        if (stack.size() > 0)
-            cout << "NO\n";
-        else
-            cout << "YES\n";
+        cout << maxPrize << "\n";
     }
     return 0;
 }

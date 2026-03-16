@@ -47,21 +47,34 @@ int main() {
     cin >> T;
     while (T--) {
         int n;
-        cin >> n;
-        string s;
-        cin >> s;
-        vector<char> stack;
-        stack.reserve(n);
-        for (char c : s) {
-            if (stack.size() > 0 && *(stack.end() - 1) == c)
-                stack.pop_back();
-            else
-                stack.push_back(c);
+        long long c;
+        cin >> n >> c;
+        vector<int> s(n);
+        for (auto &x : s)
+            cin >> x;
+        long long l = 0, r = c;
+        while (l < r - 1) {
+            long long mid = l + (r - l) / 2;
+            long long req = 0;
+            bool valid = true;
+            for (int i = 0; i < n; i++) {
+                if (s[i] + mid < 1e9 &&
+                    (c - req) >= (s[i] + 2 * mid) * (s[i] + 2 * mid)) {
+                    req += (s[i] + 2 * mid) * (s[i] + 2 * mid);
+                } else {
+                    valid = false;
+                    break;
+                }
+            }
+            if (!valid) {
+                r = mid;
+            } else if (req < c) {
+                l = mid;
+            } else {
+                cout << mid << "\n";
+                break;
+            }
         }
-        if (stack.size() > 0)
-            cout << "NO\n";
-        else
-            cout << "YES\n";
     }
     return 0;
 }

@@ -48,20 +48,16 @@ int main() {
     while (T--) {
         int n;
         cin >> n;
-        string s;
-        cin >> s;
-        vector<char> stack;
-        stack.reserve(n);
-        for (char c : s) {
-            if (stack.size() > 0 && *(stack.end() - 1) == c)
-                stack.pop_back();
-            else
-                stack.push_back(c);
+        vector<int> nums(n);
+        for (auto &x : nums)
+            cin >> x;
+        int maxNums = nums[0];
+        int gcdNums = nums[0];
+        for (int i = 1; i < n; i++) {
+            maxNums = max(maxNums, nums[i]);
+            gcdNums = gcd(gcdNums, nums[i]);
         }
-        if (stack.size() > 0)
-            cout << "NO\n";
-        else
-            cout << "YES\n";
+        cout << (maxNums / gcdNums) << "\n";
     }
     return 0;
 }

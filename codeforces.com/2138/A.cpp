@@ -46,22 +46,28 @@ int main() {
     int T;
     cin >> T;
     while (T--) {
-        int n;
-        cin >> n;
-        string s;
-        cin >> s;
-        vector<char> stack;
-        stack.reserve(n);
-        for (char c : s) {
-            if (stack.size() > 0 && *(stack.end() - 1) == c)
-                stack.pop_back();
-            else
-                stack.push_back(c);
+        int k;
+        long long x;
+        cin >> k >> x;
+        long long start = 1LL << k;
+        long long a = x, b = 2 * start - x;
+        vector<int> res;
+        while (a != start) {
+            if (a > start) {
+                res.push_back(2);
+                a -= b;
+                b *= 2;
+            } else {
+                res.push_back(1);
+                b -= a;
+                a *= 2;
+            }
         }
-        if (stack.size() > 0)
-            cout << "NO\n";
-        else
-            cout << "YES\n";
+        reverse(res.begin(), res.end());
+        cout << res.size() << "\n";
+        for (auto &x : res)
+            cout << x << " ";
+        cout << "\n";
     }
     return 0;
 }

@@ -48,20 +48,22 @@ int main() {
     while (T--) {
         int n;
         cin >> n;
-        string s;
-        cin >> s;
-        vector<char> stack;
-        stack.reserve(n);
-        for (char c : s) {
-            if (stack.size() > 0 && *(stack.end() - 1) == c)
-                stack.pop_back();
-            else
-                stack.push_back(c);
+        vector<int> nums(n);
+        int cntNeg = 0;
+        int minAbs = INT_MAX;
+        long long sum = 0;
+        for (auto &x : nums) {
+            cin >> x;
+            minAbs = min(minAbs, abs(x));
+            sum += abs(x);
+            if (x < 0)
+                cntNeg++;
         }
-        if (stack.size() > 0)
-            cout << "NO\n";
-        else
-            cout << "YES\n";
+        if (cntNeg % 2 == 0) {
+            cout << sum << "\n";
+        } else {
+            cout << sum - 2 * minAbs << "\n";
+        }
     }
     return 0;
 }

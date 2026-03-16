@@ -46,22 +46,28 @@ int main() {
     int T;
     cin >> T;
     while (T--) {
-        int n;
-        cin >> n;
-        string s;
-        cin >> s;
-        vector<char> stack;
-        stack.reserve(n);
-        for (char c : s) {
-            if (stack.size() > 0 && *(stack.end() - 1) == c)
-                stack.pop_back();
-            else
-                stack.push_back(c);
+        int n, x;
+        cin >> n >> x;
+        vector<int> a(n);
+        int minCoral = INT_MAX;
+        for (auto &p : a) {
+            cin >> p;
+            minCoral = min(minCoral, p);
         }
-        if (stack.size() > 0)
-            cout << "NO\n";
-        else
-            cout << "YES\n";
+        int l = 0, r = x + minCoral + 1;
+        while (l < r - 1) {
+            int mid = l + (r - l) / 2;
+            long long req = 0;
+            for (int i = 0; i < n; i++) {
+                req += max(0, mid - a[i]);
+            }
+            if (req > x) {
+                r = mid;
+            } else {
+                l = mid;
+            }
+        }
+        cout << l << "\n";
     }
     return 0;
 }

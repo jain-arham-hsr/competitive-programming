@@ -48,20 +48,20 @@ int main() {
     while (T--) {
         int n;
         cin >> n;
-        string s;
-        cin >> s;
-        vector<char> stack;
-        stack.reserve(n);
-        for (char c : s) {
-            if (stack.size() > 0 && *(stack.end() - 1) == c)
-                stack.pop_back();
-            else
-                stack.push_back(c);
+        if (n == 1) {
+            cout << 1;
+        } else if (n % 2 == 1) {
+            cout << -1;
+        } else {
+            for (int i = 0; i < n; i++) {
+                if (i % 2 == 0) {
+                    cout << i + 2 << " ";
+                } else {
+                    cout << i << " ";
+                }
+            }
         }
-        if (stack.size() > 0)
-            cout << "NO\n";
-        else
-            cout << "YES\n";
+        cout << "\n";
     }
     return 0;
 }

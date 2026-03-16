@@ -43,25 +43,19 @@ int main() {
     ios::sync_with_stdio(false);
     cin.tie(0);
 
-    int T;
-    cin >> T;
-    while (T--) {
-        int n;
-        cin >> n;
-        string s;
-        cin >> s;
-        vector<char> stack;
-        stack.reserve(n);
-        for (char c : s) {
-            if (stack.size() > 0 && *(stack.end() - 1) == c)
-                stack.pop_back();
-            else
-                stack.push_back(c);
-        }
-        if (stack.size() > 0)
-            cout << "NO\n";
-        else
-            cout << "YES\n";
+    int n;
+    cin >> n;
+    vector<int> x(n);
+    for (auto &p : x)
+        cin >> p;
+    sort(x.begin(), x.end());
+    int q;
+    cin >> q;
+    for (int i = 0; i < q; i++) {
+        int m;
+        cin >> m;
+        cout << distance(x.begin(), upper_bound(x.begin(), x.end(), m)) << "\n";
     }
+
     return 0;
 }

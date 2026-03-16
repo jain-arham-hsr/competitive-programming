@@ -50,18 +50,34 @@ int main() {
         cin >> n;
         string s;
         cin >> s;
-        vector<char> stack;
-        stack.reserve(n);
-        for (char c : s) {
-            if (stack.size() > 0 && *(stack.end() - 1) == c)
-                stack.pop_back();
-            else
-                stack.push_back(c);
+        long long resMin = 0;
+        long long resMax = 0;
+        long long currCount = 0;
+        for (int i = 0; i < n; i++) {
+            if (s[i] == '1' ||
+                i > 0 && i < n - 1 && s[i - 1] == '1' && s[i + 1] == '1') {
+                currCount++;
+            } else {
+                resMax += currCount;
+                if (currCount % 2 == 0) {
+                    if (currCount > 0)
+                        resMin += currCount / 2 + 1;
+                } else {
+                    resMin += (currCount + 1) / 2;
+                }
+                currCount = 0;
+            }
         }
-        if (stack.size() > 0)
-            cout << "NO\n";
-        else
-            cout << "YES\n";
+        resMax += currCount;
+        if (currCount % 2 == 0) {
+            if (currCount > 0)
+                resMin += currCount / 2 + 1;
+        } else {
+            resMin += (currCount + 1) / 2;
+        }
+        currCount = 0;
+
+        cout << resMin << " " << resMax << "\n";
     }
     return 0;
 }
